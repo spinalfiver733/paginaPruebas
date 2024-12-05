@@ -82,6 +82,64 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
 }
 
+/* Mobile styles */
+@media (max-width: 1199px) {
+  .dropdown-menu {
+    position: static;
+    box-shadow: none;
+    background-color: transparent;
+    padding: 0;
+    margin: 10px 0;
+  }
+
+  /* Toggle para móvil usando la clase .show */
+  .col-md .dropdown-menu.show {
+    display: block;
+  }
+
+  /* Ajustes para el menú móvil */
+  .col-md {
+    padding: 5px 0;
+  }
+
+  .link_sub.has-dropdown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .has-dropdown::after {
+    margin-left: 10px;
+    transition: transform var(--transition-medium);
+  }
+
+  /* Rotar flecha cuando el menú está abierto */
+  .col-md.active .has-dropdown::after {
+    transform: rotate(180deg);
+  }
+}
+
+/* Ajustes adicionales para el menú móvil */
+@media (max-width: 1199px) {
+  .dropdown-menu a {
+    padding: 10px 20px;
+    color: var(--contrast-color);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .dropdown-menu a:first-child {
+    border-top: none;
+  }
+}
+
+@media (min-width: 1200px) {
+  .col-md:hover .dropdown-menu,
+  .col-md.active .dropdown-menu {
+    display: block;
+  }
+}
+
 .col-md:hover .dropdown-menu,
 .col-md.active .dropdown-menu {
   display: block;

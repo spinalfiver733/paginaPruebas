@@ -23,6 +23,50 @@
   window.addEventListener('load', toggleScrolled);
 
   /**
+   * Manejo de dropdowns del submenu
+   */
+  const dropdownLinks = document.querySelectorAll('.has-dropdown');
+
+  dropdownLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      // Solo ejecutar en móvil
+      if (window.innerWidth < 1200) {
+        e.preventDefault();
+        const parentCol = this.closest('.col-md');
+        const dropdownMenu = parentCol.querySelector('.dropdown-menu');
+        
+        // Toggle la clase active en el col-md
+        parentCol.classList.toggle('active');
+        
+        // Toggle la clase show en el dropdown-menu
+        dropdownMenu.classList.toggle('show');
+        
+        // Cerrar otros menús abiertos
+        dropdownLinks.forEach(otherLink => {
+          if (otherLink !== link) {
+            const otherParentCol = otherLink.closest('.col-md');
+            const otherDropdownMenu = otherParentCol.querySelector('.dropdown-menu');
+            otherParentCol.classList.remove('active');
+            otherDropdownMenu.classList.remove('show');
+          }
+        });
+      }
+    });
+  });
+
+  // Cerrar menús al cambiar el tamaño de la ventana
+  window.addEventListener('resize', function() {
+    if (window.innerWidth >= 1200) {
+      document.querySelectorAll('.dropdown-menu').forEach(menu => {
+        menu.classList.remove('show');
+      });
+      document.querySelectorAll('.col-md').forEach(col => {
+        col.classList.remove('active');
+      });
+    }
+  });
+
+  /**
    * Mobile nav toggle
    */
   const mobileNavToggleBtn = document.querySelector('.mobile-nav-toggle');
@@ -34,29 +78,6 @@
   }
   mobileNavToggleBtn.addEventListener('click', mobileNavToogle);
 
-/**
- * Handle mobile dropdowns
- */
-const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
-
-dropdownToggles.forEach(toggle => {
-  toggle.addEventListener('click', function(e) {
-    if (window.innerWidth <= 1199) {
-      e.preventDefault();
-      const dropdownMenu = this.nextElementSibling;
-      dropdownMenu.classList.toggle('dropdown-active');
-    }
-  });
-});
-
-// Reset dropdown states on window resize
-window.addEventListener('resize', function() {
-  if (window.innerWidth > 1199) {
-    document.querySelectorAll('.dropdown-active').forEach(menu => {
-      menu.classList.remove('dropdown-active');
-    });
-  }
-});
 
   /**
    * Hide mobile nav on same-page/hash links
