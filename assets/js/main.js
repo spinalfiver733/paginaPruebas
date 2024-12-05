@@ -25,65 +25,77 @@
   /**
    * Manejo de dropdowns del submenu
    */
-  const dropdownLinks = document.querySelectorAll('.has-dropdown'); // Esta línea faltaba
-  
+  const dropdownLinks = document.querySelectorAll('.has-dropdown');
+
   // Variable para almacenar el menú actualmente abierto
   let activeDropdown = null;
 
-  dropdownLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
-      // Solo ejecutar en móvil
-      if (window.innerWidth < 1200) {
-        e.preventDefault();
-        const parentCol = this.closest('.col-md');
-        const dropdownMenu = parentCol.querySelector('.dropdown-menu');
-        
-        // Si este dropdown ya está activo, lo cerramos
-        if (parentCol.classList.contains('active')) {
-          parentCol.classList.remove('active');
-          dropdownMenu.classList.remove('show');
-          activeDropdown = null;
-        }
-        // Si hay otro dropdown activo, lo cerramos y abrimos este
-        else {
-          // Cerrar el dropdown activo anterior si existe
-          if (activeDropdown) {
-            activeDropdown.classList.remove('active');
-            activeDropdown.querySelector('.dropdown-menu').classList.remove('show');
-          }
-          
-          // Abrir el nuevo dropdown
-          parentCol.classList.add('active');
-          dropdownMenu.classList.add('show');
-          activeDropdown = parentCol;
-        }
+  // Función para manejar el toggle del dropdown
+  function toggleDropdown(e) {
+    // Solo ejecutar en móvil
+    if (window.innerWidth < 1200) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const parentCol = this.closest('.col-md');
+      const dropdownMenu = parentCol.querySelector('.dropdown-menu');
+      
+      // Si este dropdown ya está activo, lo cerramos
+      if (parentCol.classList.contains('active')) {
+        parentCol.classList.remove('active');
+        dropdownMenu.classList.remove('show');
+        activeDropdown = null;
       }
-    });
+      // Si hay otro dropdown activo, lo cerramos y abrimos este
+      else {
+        // Cerrar el dropdown activo anterior si existe
+        if (activeDropdown) {
+          activeDropdown.classList.remove('active');
+          activeDropdown.querySelector('.dropdown-menu').classList.remove('show');
+        }
+        
+        // Abrir el nuevo dropdown
+        parentCol.classList.add('active');
+        dropdownMenu.classList.add('show');
+        activeDropdown = parentCol;
+      }
+    }
+  }
+
+  // Agregar event listeners para los dropdowns
+  dropdownLinks.forEach(link => {
+    link.addEventListener('click', toggleDropdown);
+    link.addEventListener('touchstart', toggleDropdown);
   });
 
- // Cerrar menús al cambiar el tamaño de la ventana
- window.addEventListener('resize', function() {
-   if (window.innerWidth >= 1200) {
-     document.querySelectorAll('.dropdown-menu').forEach(menu => {
-       menu.classList.remove('show');
-     });
-     document.querySelectorAll('.col-md').forEach(col => {
-       col.classList.remove('active');
-     });
-     activeDropdown = null;
-   }
- });
+  // Función para manejar clics fuera del dropdown
+  function handleOutsideClick(e) {
+    if (window.innerWidth < 1200) {
+      if (!e.target.closest('.col-md') && activeDropdown) {
+        activeDropdown.classList.remove('active');
+        activeDropdown.querySelector('.dropdown-menu').classList.remove('show');
+        activeDropdown = null;
+      }
+    }
+  }
 
- // Cerrar el dropdown al hacer clic fuera
- document.addEventListener('click', function(e) {
-   if (window.innerWidth < 1200) {
-     if (!e.target.closest('.col-md') && activeDropdown) {
-       activeDropdown.classList.remove('active');
-       activeDropdown.querySelector('.dropdown-menu').classList.remove('show');
-       activeDropdown = null;
-     }
-   }
- });
+  // Event listeners para cerrar al clic fuera
+  document.addEventListener('click', handleOutsideClick);
+  document.addEventListener('touchstart', handleOutsideClick);
+
+  // Event listener para el resize
+  window.addEventListener('resize', function() {
+    if (window.innerWidth >= 1200) {
+      document.querySelectorAll('.dropdown-menu').forEach(menu => {
+        menu.classList.remove('show');
+      });
+      document.querySelectorAll('.col-md').forEach(col => {
+        col.classList.remove('active');
+      });
+      activeDropdown = null;
+    }
+  });
+
   /**
    * Mobile nav toggle
    */
