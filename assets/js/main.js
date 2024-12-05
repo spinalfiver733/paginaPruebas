@@ -23,6 +23,68 @@
   window.addEventListener('load', toggleScrolled);
 
   /**
+   * Manejo de dropdowns del submenu
+   */
+  const dropdownLinks = document.querySelectorAll('.has-dropdown'); // Esta línea faltaba
+  
+  // Variable para almacenar el menú actualmente abierto
+  let activeDropdown = null;
+
+  dropdownLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      // Solo ejecutar en móvil
+      if (window.innerWidth < 1200) {
+        e.preventDefault();
+        const parentCol = this.closest('.col-md');
+        const dropdownMenu = parentCol.querySelector('.dropdown-menu');
+        
+        // Si este dropdown ya está activo, lo cerramos
+        if (parentCol.classList.contains('active')) {
+          parentCol.classList.remove('active');
+          dropdownMenu.classList.remove('show');
+          activeDropdown = null;
+        }
+        // Si hay otro dropdown activo, lo cerramos y abrimos este
+        else {
+          // Cerrar el dropdown activo anterior si existe
+          if (activeDropdown) {
+            activeDropdown.classList.remove('active');
+            activeDropdown.querySelector('.dropdown-menu').classList.remove('show');
+          }
+          
+          // Abrir el nuevo dropdown
+          parentCol.classList.add('active');
+          dropdownMenu.classList.add('show');
+          activeDropdown = parentCol;
+        }
+      }
+    });
+  });
+
+ // Cerrar menús al cambiar el tamaño de la ventana
+ window.addEventListener('resize', function() {
+   if (window.innerWidth >= 1200) {
+     document.querySelectorAll('.dropdown-menu').forEach(menu => {
+       menu.classList.remove('show');
+     });
+     document.querySelectorAll('.col-md').forEach(col => {
+       col.classList.remove('active');
+     });
+     activeDropdown = null;
+   }
+ });
+
+ // Cerrar el dropdown al hacer clic fuera
+ document.addEventListener('click', function(e) {
+   if (window.innerWidth < 1200) {
+     if (!e.target.closest('.col-md') && activeDropdown) {
+       activeDropdown.classList.remove('active');
+       activeDropdown.querySelector('.dropdown-menu').classList.remove('show');
+       activeDropdown = null;
+     }
+   }
+ });
+  /**
    * Mobile nav toggle
    */
   const mobileNavToggleBtn = document.querySelector('.mobile-nav-toggle');
@@ -34,30 +96,6 @@
   }
   mobileNavToggleBtn.addEventListener('click', mobileNavToogle);
 
-/**
- * Handle mobile dropdowns
- */
-const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
-
-dropdownToggles.forEach(toggle => {
-  toggle.addEventListener('click', function(e) {
-    if (window.innerWidth <= 1199) {
-      e.preventDefault();
-      const dropdownMenu = this.nextElementSibling;
-      dropdownMenu.classList.toggle('dropdown-active');
-    }
-  });
-});
-
-// Reset dropdown states on window resize
-window.addEventListener('resize', function() {
-  if (window.innerWidth > 1199) {
-    document.querySelectorAll('.dropdown-active').forEach(menu => {
-      menu.classList.remove('dropdown-active');
-    });
-  }
-});
-
   /**
    * Hide mobile nav on same-page/hash links
    */
@@ -67,9 +105,7 @@ window.addEventListener('resize', function() {
         mobileNavToogle();
       }
     });
-
   });
-
 
   /**
    * Preloader
@@ -174,7 +210,6 @@ window.addEventListener('resize', function() {
         }
       }, false);
     });
-
   });
 
   /**
@@ -236,40 +271,43 @@ window.addEventListener('resize', function() {
   window.addEventListener('load', navmenuScrollspy);
   document.addEventListener('scroll', navmenuScrollspy);
 
+  /**
+   * Service cards hover effect
+   */
   document.querySelectorAll('.service-card').forEach(card => {
     card.addEventListener('mouseenter', () => {
       card.closest('.row').style.marginBottom = '200px';
-      card.closest('.row').style.transition = 'margin-bottom 0.5s ease'; // Transición lenta de 0.5 segundos
+      card.closest('.row').style.transition = 'margin-bottom 0.5s ease';
     });
     
     card.addEventListener('mouseleave', () => {
       card.closest('.row').style.marginBottom = '0';
-      card.closest('.row').style.transition = 'margin-bottom 0.5s ease'; // Transición lenta de 0.5 segundos
+      card.closest('.row').style.transition = 'margin-bottom 0.5s ease';
     });
   });
 
-  // Agregar esto al archivo main.js
+  /**
+   * Contact section highlight
+   */
   document.addEventListener('DOMContentLoaded', function() {
-    // Obtener el enlace de contacto
     const enlaceContacto = document.querySelector('.nav-item.dropdown .nav-link');
     
-    // Agregar el evento click
-    enlaceContacto.addEventListener('click', function(e) {
+    if (enlaceContacto) {
+      enlaceContacto.addEventListener('click', function(e) {
         e.preventDefault();
         
-        // Obtener la sección de contacto
         const seccionContacto = document.getElementById('contact-info');
         
-        // Desplazar hacia la sección
-        seccionContacto.scrollIntoView({ behavior: 'smooth' });
-        
-        // Agregar estilo de resaltado
-        seccionContacto.classList.add('highlight-contact');
-        
-        // Remover el resaltado después de 3 segundos
-        setTimeout(() => {
+        if (seccionContacto) {
+          seccionContacto.scrollIntoView({ behavior: 'smooth' });
+          seccionContacto.classList.add('highlight-contact');
+          
+          setTimeout(() => {
             seccionContacto.classList.remove('highlight-contact');
-        }, 3000);
-    });
+          }, 3000);
+        }
+      });
+    }
   });
-})();
+
+})(); // Fin de la función autoejecutable
