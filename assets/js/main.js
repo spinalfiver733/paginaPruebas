@@ -288,7 +288,7 @@
    */
   document.querySelectorAll('.service-card').forEach(card => {
     card.addEventListener('mouseenter', () => {
-      card.closest('.row').style.marginBottom = '200px';
+      card.closest('.row').style.marginBottom = '250px';
       card.closest('.row').style.transition = 'margin-bottom 0.5s ease';
     });
     

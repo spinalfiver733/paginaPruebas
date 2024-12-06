@@ -17,6 +17,7 @@
   --nav-hover-color: #AC4763;
   --nav-mobile-background: #ffffff;
   --nav-dropdown-color: #444444;
+  --secondary-color: #bc955b;
   
   /* Color personalizado */
   --gam-color: #891435;
@@ -1566,7 +1567,7 @@ section,
 }
 
 .info-overlay h2 {
-  color: white;
+  color: var(--secondary-color);
   font-size: 1.4rem;
   margin-bottom: 15px;
   border-bottom: 1px solid rgba(255,255,255,0.2);
@@ -1670,4 +1671,15 @@ section,
 .service-card, 
 .service-card .info-overlay {
   transition: all 0.3s ease-in-out;
+}
+
+/*Titulos cards*/
+
+.vinculos-secundarios {
+  color: var(--secondary-color);
+  transition: var(--transition-fast);
+}
+
+.vinculos-secundarios:hover {
+  color: color-mix(in srgb, var(--secondary-color), transparent 20%);
 }
