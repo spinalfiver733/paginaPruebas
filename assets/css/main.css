@@ -1535,6 +1535,7 @@ section,
 .service-card {
   position: relative;
   z-index: 2;
+  margin-bottom: 20px;
 }
 
 .service-card .info-overlay {
@@ -1547,7 +1548,7 @@ section,
   padding: 20px;
   opacity: 0;
   visibility: hidden;
-  z-index: 3; /* Cambiamos el z-index a 3 para que se sobreponga */
+  z-index: 3;
   text-align: left;
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
   pointer-events: none;
@@ -1555,6 +1556,7 @@ section,
   border-bottom: 1px solid white;
   border-right: 1px solid white;
   border-radius: 0 20px 20px 0;
+  transition: all 0.3s ease;
 }
 
 .service-card:hover .info-overlay {
@@ -1595,4 +1597,71 @@ section,
   100% {
       box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
   }
+}
+
+/* Estilos específicos para móvil */
+@media (max-width: 767px) {
+  .service-card {
+    margin-bottom: 30px; /* Aumentamos el margen inferior por defecto */
+  }
+  
+  .service-card .info-overlay {
+    position: relative;
+    width: 100%;
+    top: 0;
+    border-radius: 20px;
+    border-left: 1px solid white;
+    margin-top: 15px;
+    transition: all 0.3s ease;
+  }
+  
+  .service-card:hover {
+    z-index: 4; /* Aseguramos que la tarjeta activa esté por encima */
+  }
+  
+  .service-card:hover .info-overlay {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    margin-bottom: 30px; /* Espacio adicional al expandirse */
+  }
+  
+  /* Ajustamos el espacio entre tarjetas cuando hay una expandida */
+  .service-card:hover + .service-card {
+    margin-top: 200px; /* Espacio para el contenido expandido */
+    transition: margin-top 0.3s ease;
+  }
+  
+  /* Mejoramos la legibilidad del contenido */
+  .info-overlay h2 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .info-overlay p {
+    font-size: 0.85rem;
+    line-height: 1.3;
+    margin: 6px 0;
+  }
+}
+
+/* Optimizaciones para tablets */
+@media (min-width: 768px) and (max-width: 991px) {
+  .service-card .info-overlay {
+    width: 180%;
+  }
+}
+
+/* Aseguramos que el contenedor principal tenga el espacio necesario */
+.row.text-center.mt-4 {
+  position: relative;
+  margin-bottom: 50px;
+  overflow: visible;
+}
+
+/* Animación suave para los cambios de estado */
+.service-card, 
+.service-card .info-overlay,
+.service-card + .service-card {
+  transition: all 0.3s ease-in-out;
 }
