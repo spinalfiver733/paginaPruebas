@@ -322,4 +322,29 @@
     }
   });
 
+  document.addEventListener('DOMContentLoaded', function() {
+    const serviceCards = document.querySelectorAll('.service-card');
+    
+    serviceCards.forEach(card => {
+      card.addEventListener('click', function(e) {
+        if (window.innerWidth < 768) { // Solo en móvil
+          e.preventDefault();
+          
+          // Si ya está activa, la desactivamos
+          if (this.classList.contains('active')) {
+            this.classList.remove('active');
+          } else {
+            // Desactivamos cualquier otra tarjeta activa
+            document.querySelectorAll('.service-card.active').forEach(activeCard => {
+              activeCard.classList.remove('active');
+            });
+            
+            // Activamos esta tarjeta
+            this.classList.add('active');
+          }
+        }
+      });
+    });
+  });
+
 })(); // Fin de la función autoejecutable

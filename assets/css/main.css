@@ -1599,40 +1599,47 @@ section,
   }
 }
 
+/* Estilos para desktop */
+@media (min-width: 768px) {
+  .service-card:hover .info-overlay {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+}
 /* Estilos específicos para móvil */
 @media (max-width: 767px) {
   .service-card {
-    margin-bottom: 30px; /* Aumentamos el margen inferior por defecto */
+    margin-bottom: 15px; /* Margen normal sin expandir */
+    transition: margin-bottom 0.3s ease;
   }
   
   .service-card .info-overlay {
     position: relative;
     width: 100%;
     top: 0;
+    height: 0;
+    padding: 0;
+    margin: 0;
     border-radius: 20px;
     border-left: 1px solid white;
-    margin-top: 15px;
+    overflow: hidden;
     transition: all 0.3s ease;
   }
   
-  .service-card:hover {
-    z-index: 4; /* Aseguramos que la tarjeta activa esté por encima */
+  .service-card.active {
+    margin-bottom: 30px;
   }
   
-  .service-card:hover .info-overlay {
+  .service-card.active .info-overlay {
+    height: auto;
+    padding: 20px;
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
-    margin-bottom: 30px; /* Espacio adicional al expandirse */
+    margin-top: 15px;
   }
-  
-  /* Ajustamos el espacio entre tarjetas cuando hay una expandida */
-  .service-card:hover + .service-card {
-    margin-top: 200px; /* Espacio para el contenido expandido */
-    transition: margin-top 0.3s ease;
-  }
-  
-  /* Mejoramos la legibilidad del contenido */
+
   .info-overlay h2 {
     font-size: 1.2rem;
     margin-bottom: 10px;
@@ -1652,16 +1659,15 @@ section,
   }
 }
 
-/* Aseguramos que el contenedor principal tenga el espacio necesario */
-.row.text-center.mt-4 {
-  position: relative;
-  margin-bottom: 50px;
-  overflow: visible;
+/* Aseguramos que el contenedor principal tenga el espacio necesario solo en desktop */
+@media (min-width: 768px) {
+  .row.text-center.mt-4 {
+    margin-bottom: 200px;
+  }
 }
 
 /* Animación suave para los cambios de estado */
 .service-card, 
-.service-card .info-overlay,
-.service-card + .service-card {
+.service-card .info-overlay {
   transition: all 0.3s ease-in-out;
 }
