@@ -1587,6 +1587,129 @@ section,
 .highlight-contact {
   animation: pulse 3s;
 }
+/*SECCION DE FLAYER*/
+/* Estilos para la estructura principal */
+.flayer-content {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+  min-height: 500px;
+}
+
+/* Contenedor del sidebar */
+.sidebar-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  height: 500px;
+}
+
+/* Encabezado fijo del sidebar */
+.sidebar-header {
+  padding: 1.5rem;
+  background: white;
+  border-bottom: 2px solid #891435;
+  border-radius: 8px 8px 0 0;
+}
+
+.sidebar-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* Lista con scroll */
+.content-list {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #891435 #f0f0f0;
+}
+
+.content-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.content-list li {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  transition: all 0.3s ease;
+}
+
+.content-list li:hover {
+background-color: rgba(137, 20, 53, 0.1);
+}
+
+.content-list li.active {
+  background-color: #891435;
+  color: white;
+  font-weight: bold;
+}
+
+/* Estilos para la barra de desplazamiento */
+.content-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.content-list::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 4px;
+}
+
+.content-list::-webkit-scrollbar-thumb {
+  background-color: #891435;
+  border-radius: 4px;
+}
+
+/* Contenedor del carrusel */
+.carousel-container {
+  flex: 2;
+}
+
+.carousel {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.carousel-item img {
+  height: 434px;
+  object-fit: cover;
+}
+
+/* Estilos para las flechas del carrusel */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: #891435;
+  padding: 25px;
+  border-radius: 50%;
+  background-size: 50% 50%;
+}
+
+@media (max-width: 768px) {
+  .flayer-content {
+      flex-direction: column;
+  }
+
+  .sidebar-container,
+  .carousel-container {
+      width: 100%;
+  }
+
+  .carousel-item img {
+      height: 300px;
+  }
+}
+/*FIN SECCIÓN FLAYER*/
 
 @keyframes pulse {
   0% {

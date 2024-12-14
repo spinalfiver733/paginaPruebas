@@ -347,4 +347,43 @@
     });
   });
 
+  /***SECCION FLAYER***/
+  document.addEventListener('DOMContentLoaded', function() {
+    // Obtener el carrusel
+    const carousel = new bootstrap.Carousel(document.getElementById('carouselFotos'));
+    
+    // Obtener todos los elementos de la lista
+    const listItems = document.querySelectorAll('.content-list ul li');
+    
+    // Agregar el evento click a cada elemento de la lista
+    listItems.forEach(item => {
+      item.addEventListener('click', function() {
+        // Remover la clase active de todos los elementos
+        listItems.forEach(li => li.classList.remove('active'));
+        
+        // Agregar la clase active al elemento clickeado
+        this.classList.add('active');
+        
+        // Obtener el número de slide del atributo data-slide
+        const slideNumber = parseInt(this.getAttribute('data-slide'));
+        
+        // Mover el carrusel al slide correspondiente
+        carousel.to(slideNumber);
+      });
+    });
+  
+    // También actualizamos la lista cuando el carrusel cambie
+    document.getElementById('carouselFotos').addEventListener('slide.bs.carousel', function (event) {
+      // Remover la clase active de todos los elementos
+      listItems.forEach(li => li.classList.remove('active'));
+      
+      // Agregar la clase active al elemento correspondiente
+      const activeSlide = event.to;
+      const correspondingItem = document.querySelector(`[data-slide="${activeSlide}"]`);
+      if (correspondingItem) {
+        correspondingItem.classList.add('active');
+      }
+    });
+  });
+  /***FIN SECCION FLAYER***/
 })(); // Fin de la función autoejecutable
