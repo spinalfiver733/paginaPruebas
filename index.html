@@ -24,6 +24,128 @@
   <link href="assets/css/main.css" rel="stylesheet">
 
 </head>
+<style>
+  /* Estilos para la estructura principal */
+.mediateka-content {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+    min-height: 500px;
+}
+
+/* Contenedor del sidebar */
+.sidebar-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    height: 500px;
+}
+
+/* Encabezado fijo del sidebar */
+.sidebar-header {
+    padding: 1.5rem;
+    background: white;
+    border-bottom: 2px solid #891435;
+    border-radius: 8px 8px 0 0;
+}
+
+.sidebar-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+/* Lista con scroll */
+.content-list {
+    flex: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #891435 #f0f0f0;
+}
+
+.content-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.content-list li {
+    padding: 0.75rem;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.content-list li:hover {
+    background-color: #f8f9fa;
+}
+
+.content-list li.active {
+    background-color: #891435;
+    color: white;
+}
+
+/* Estilos para la barra de desplazamiento */
+.content-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.content-list::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 4px;
+}
+
+.content-list::-webkit-scrollbar-thumb {
+    background-color: #891435;
+    border-radius: 4px;
+}
+
+/* Contenedor del carrusel */
+.carousel-container {
+    flex: 2;
+}
+
+.carousel {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.carousel-item img {
+    height: 434px;
+    object-fit: cover;
+}
+
+/* Estilos para las flechas del carrusel */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: #891435;
+    padding: 25px;
+    border-radius: 50%;
+    background-size: 50% 50%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .mediateka-content {
+        flex-direction: column;
+    }
+
+    .sidebar-container,
+    .carousel-container {
+        width: 100%;
+    }
+
+    .carousel-item img {
+        height: 300px;
+    }
+}
+</style>
 <body>
 
   <header id="header" class="header d-flex align-items-center sticky-top">
@@ -263,9 +385,55 @@
           </div>
         </div>
       </div>
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="mediateka-content">
+          <!-- Sidebar con lista -->
+          <div class="sidebar-container">
+            <div class="sidebar-header">
+              <h3 class="text-secondary">GALERÍA COMPLETA</h3>
+            </div>
+            <div class="content-list">
+              <ul>
+                <li class="active">Sistema pra la consulta de Información Censal(SCINCE) 2020</li>
+                <li>Centros de Desarrollo Social</li>
+                <li>Evaluación Interna 2022 de los Programas Sociales 2021</li>
+                <li>Servicios Médicos Gratuitos</li>
+              </ul>
+            </div>
+          </div>
+      
+          <!-- Carrusel -->
+          <div class="carousel-container">
+            <div id="carouselFotos" class="carousel slide">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <img src="assets/img/PruebaGAM1.png" class="d-block w-100" alt="Sistema pra la consulta de Información Censal(SCINCE) 2020">
+                </div>
+                <div class="carousel-item">
+                  <img src="assets/img/PruebaGAM2.png" class="d-block w-100" alt="Centros de Desarrollo Social">
+                </div>
+                <div class="carousel-item">
+                  <img src="assets/img/PruebaGAM3.png" class="d-block w-100" alt="Evaluación Interna 2022 de los Programas Sociales 2021">
+                </div>
+                <div class="carousel-item">
+                  <img src="assets/img/PruebaGAM4.png" class="d-block w-100" alt="Servicios Médicos Gratuitos">
+                </div>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselFotos" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselFotos" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!---
       <div class="container text-center" data-aos="fade-up" data-aos-delay="100">
         <img class="img-fluid" src="assets/img/contact-bg.png" alt="home">
       </div>
+      --->
       <div class="container" data-aos="fade-up" data-aos-delay="100">
         <div class="row">
           <h1 class="bg_text"><strong>Comunicados</strong></h1>
