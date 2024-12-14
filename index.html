@@ -74,19 +74,21 @@
 }
 
 .content-list li {
-    padding: 0.75rem;
+    padding: 15px;
     border-bottom: 1px solid #eee;
     cursor: pointer;
     transition: background-color 0.2s;
+    transition: all 0.3s ease;
 }
 
 .content-list li:hover {
-    background-color: #f8f9fa;
+  background-color: rgba(137, 20, 53, 0.1);
 }
 
 .content-list li.active {
     background-color: #891435;
     color: white;
+    font-weight: bold;
 }
 
 /* Estilos para la barra de desplazamiento */
@@ -394,10 +396,10 @@
             </div>
             <div class="content-list">
               <ul>
-                <li class="active">Sistema pra la consulta de Información Censal(SCINCE) 2020</li>
-                <li>Centros de Desarrollo Social</li>
-                <li>Evaluación Interna 2022 de los Programas Sociales 2021</li>
-                <li>Servicios Médicos Gratuitos</li>
+                <li class="active" data-slide="0">Sistema pra la consulta de Información Censal(SCINCE) 2020</li>
+                <li data-slide="1">Centros de Desarrollo Social</li>
+                <li data-slide="2">Evaluación Interna 2022 de los Programas Sociales 2021</li>
+                <li data-slide="3">Servicios Médicos Gratuitos</li>
               </ul>
             </div>
           </div>
@@ -615,5 +617,43 @@
   <script src="assets/js/main.js"></script>
 
 </body>
-
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Obtener el carrusel
+    const carousel = new bootstrap.Carousel(document.getElementById('carouselFotos'));
+    
+    // Obtener todos los elementos de la lista
+    const listItems = document.querySelectorAll('.content-list ul li');
+    
+    // Agregar el evento click a cada elemento de la lista
+    listItems.forEach(item => {
+      item.addEventListener('click', function() {
+        // Remover la clase active de todos los elementos
+        listItems.forEach(li => li.classList.remove('active'));
+        
+        // Agregar la clase active al elemento clickeado
+        this.classList.add('active');
+        
+        // Obtener el número de slide del atributo data-slide
+        const slideNumber = parseInt(this.getAttribute('data-slide'));
+        
+        // Mover el carrusel al slide correspondiente
+        carousel.to(slideNumber);
+      });
+    });
+  
+    // También actualizamos la lista cuando el carrusel cambie
+    document.getElementById('carouselFotos').addEventListener('slide.bs.carousel', function (event) {
+      // Remover la clase active de todos los elementos
+      listItems.forEach(li => li.classList.remove('active'));
+      
+      // Agregar la clase active al elemento correspondiente
+      const activeSlide = event.to;
+      const correspondingItem = document.querySelector(`[data-slide="${activeSlide}"]`);
+      if (correspondingItem) {
+        correspondingItem.classList.add('active');
+      }
+    });
+  });
+  </script>
 </html>
